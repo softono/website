@@ -37,6 +37,6 @@ function icon($name, $class = 'w-5 h-5', $label = '') {
         'download' => '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/>',
         'globe'    => '<circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/>',
     ];
-    $a11y = $label !== '' ? 'role="img" aria-label="' . htmlspecialchars($label) . '"' : 'aria-hidden="true"';
+    $a11y = $label !== '' ? 'role="img" aria-label="' . e($label) . '"' : 'aria-hidden="true"';
     return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="' . $class . '" ' . $a11y . '>' . ($paths[$name] ?? '') . '</svg>';
 }

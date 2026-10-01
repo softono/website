@@ -1,0 +1,185 @@
+/* Component layout/structure. Colors and dark mode live in the active theme file.
+   Layout and spacing come from Tailwind utilities.
+   Plain CSS (no @apply): the Tailwind Play CDN only compiles inline blocks.
+   Loaded after the theme (so the contrast tweaks below win) but before the
+   Tailwind CDN, so utility classes override these on conflict. */
+
+/* ---------- Base ---------- */
+html { scroll-padding-top: 5rem; }
+
+:focus-visible {
+  outline: 2px solid;
+  outline-offset: 2px;
+  border-radius: 0.25rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, ::before, ::after { animation: none !important; transition: none !important; }
+}
+
+#main-container:focus { outline: none; }
+.text-balance { text-wrap: balance; }
+
+/* ---------- Accessibility helpers ---------- */
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 100;
+  border-radius: 0.5rem;
+  padding: 0.625rem 1rem;
+  font-weight: 600;
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  transition: top .15s;
+}
+.skip-link:focus { top: 1rem; }
+
+/* Honeypot field: hidden from sight and assistive tech, still present for bots */
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+/* ---------- Contrast tweaks (apply to every theme) ---------- */
+.t-muted, .site-footer { color: color-mix(in srgb, var(--muted-foreground) 65%, var(--foreground)); }
+.eyebrow { color: color-mix(in srgb, var(--primary) 80%, var(--foreground)); }
+.btn-primary { background-color: color-mix(in srgb, var(--primary) 85%, black); }
+.btn-primary:hover { background-color: color-mix(in srgb, var(--primary) 70%, black); }
+
+/* ---------- Navigation ---------- */
+.nav-link {
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  transition: color .15s, background-color .15s;
+}
+.nav-link[aria-current="page"] { background-color: var(--accent); color: var(--accent-foreground); }
+
+/* ---------- Icon button / theme toggle ---------- */
+.icon-btn {
+  display: inline-flex;
+  width: 2.75rem;
+  height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  color: var(--muted-foreground);
+  cursor: pointer;
+  transition: color .15s, background-color .15s;
+}
+.icon-btn:hover { background-color: var(--accent); color: var(--accent-foreground); }
+.show-dark { display: none; }
+.dark .show-dark { display: inline-flex; }
+.dark .show-light { display: none; }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex;
+  min-height: 2.75rem;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 0.75rem;
+  padding: 0.625rem 1.25rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+  transition: color .15s, background-color .15s;
+}
+.btn:disabled { cursor: not-allowed; opacity: .6; }
+
+/* ---------- Card / eyebrow ---------- */
+.card {
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 1px 2px rgb(0 0 0 / .05);
+}
+.card-hover { transition: transform .2s, box-shadow .2s; }
+.card-hover:hover { transform: translateY(-2px); box-shadow: var(--shadow-md, 0 4px 6px rgb(0 0 0 / .1)); }
+.icon-tile {
+  display: inline-flex;
+  width: 2.75rem;
+  height: 2.75rem;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.75rem;
+  background-color: color-mix(in srgb, var(--primary) 12%, transparent);
+  color: color-mix(in srgb, var(--primary) 80%, var(--foreground));
+}
+
+.eyebrow {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* ---------- Forms ---------- */
+.field {
+  display: block;
+  width: 100%;
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+}
+.field:focus { box-shadow: none; }
+
+.field-error { margin-top: 0.375rem; font-size: 0.875rem; line-height: 1.25rem; }
+.field:focus-visible { outline-offset: 0; }
+
+.alert-success, .alert-error {
+  border-radius: 0.75rem;
+  border: 1px solid;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+.alert-success { border-color: #15803d; background-color: color-mix(in srgb, #15803d 12%, transparent); color: #166534; }
+.alert-error { border-color: #b91c1c; background-color: color-mix(in srgb, #b91c1c 10%, transparent); color: #991b1b; }
+.dark .alert-success { color: #86efac; }
+.dark .alert-error { color: #fca5a5; }
+
+/* ---------- Hero grid backdrop ---------- */
+.hero { position: relative; overflow: hidden; border-bottom: 1px solid var(--border); }
+.hero > .bg-grid { position: absolute; inset: 0; }
+.bg-grid {
+  background-size: 40px 40px;
+  -webkit-mask-image: radial-gradient(ellipse at top, #000 30%, transparent 75%);
+  mask-image: radial-gradient(ellipse at top, #000 30%, transparent 75%);
+}
+
+/* ---------- Footer ---------- */
+.footer-link { text-decoration: underline; text-underline-offset: 4px; text-decoration-color: transparent; transition: text-decoration-color .15s; }
+.footer-link:hover { text-decoration-color: currentColor; }
+.site-footer { background-color: var(--card); border-color: var(--border); }
+.site-footer .footer-link { color: var(--foreground); }
+
+/* ---------- PJAX loading UI ---------- */
+.loading-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  min-height: 40vh;
+  font-size: 0.95rem;
+  color: var(--muted-foreground);
+  animation: pjax-fade-in .2s ease .15s both; /* skip flash on fast loads */
+}
+.loading-text::before {
+  content: "";
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--border);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: pjax-spin .7s linear infinite;
+}
+@keyframes pjax-spin { to { transform: rotate(360deg); } }
+@keyframes pjax-fade-in { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .loading-text { animation: none; }
+  .loading-text::before { animation-duration: 1.5s; }
+}

@@ -1,11 +1,4 @@
+# Local/shared-hosting fallback: forward everything into public/ so only public/ is ever served.
+# In production, point the document root at public/ instead and this file is not needed.
 RewriteEngine On
-
-# 2. Redirect external requests for *.php to extensionless (301 redirect)
-RewriteCond %{THE_REQUEST} \s/+(.*?)\.php[\s?] [NC]
-RewriteCond %{ENV:REDIRECT_STATUS} ^$
-RewriteRule ^(.+)\.php$ $1 [R=301,L,NE]
-
-# 3. Route extensionless requests to PHP files internally
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME}.php -f
-RewriteRule ^([^/]+)/?$ $1.php [L]
+RewriteRule ^(?!public/)(.*)$ public/$1 [L]
