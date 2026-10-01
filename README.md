@@ -7,7 +7,7 @@ A small multi-page PHP website (Home, About, Services, Contact) styled with Tail
 - **PJAX navigation**: links with the `pjax` class fetch only the `<main>` content (`?partial=1&layout=main`) instead of reloading the whole page.
 - **Loading UI**: a CSS spinner shown while uncached pages load (`.loading-text` in `assets/css/custom.css`).
 - **Theming**: CSS-variable themes in `assets/theme/`; the active one is `theme-claude.css`. Light/dark mode is stored in `localStorage`.
-- **Clean URLs**: `.htaccess` hides `.php` extensions and 301-redirects `*.php` requests.
+- **Clean URLs**: `.htaccess` (Apache) or `nginx.conf` (Nginx) hides `.php` extensions and 301-redirects `*.php` requests.
 - **SEO**: per-page meta tags via `layout/seo.php`, plus `robots.txt` and `sitemap.xml`.
 - **Contact form**: validated client-side with jQuery Validate and handled by `contact-send.php`.
 
@@ -21,13 +21,13 @@ assets/css/custom.css                             Custom styles (incl. PJAX load
 assets/theme/                                     Colour themes
 assets/js/pjax.min.js                             PJAX library
 assets/images/                                    Images and logo
-.htaccess                                         URL rewriting
+.htaccess, nginx.conf                                 URL rewriting (Apache / Nginx)
 ```
 
 ## Requirements
 
 - PHP 7.4+
-- Apache with `mod_rewrite` (for clean URLs)
+- Apache with `mod_rewrite` (uses `.htaccess`) or Nginx with PHP-FPM (include `nginx.conf` in your server block)
 - Internet access for the CDN-hosted Tailwind, jQuery and jQuery Validate
 
 ## Setup
