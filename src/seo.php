@@ -1,25 +1,25 @@
 <?php
-/** Page registry: single source of truth for SEO meta, the sitemap and robots.txt. */
+/** Page registry: per-page SEO titles and descriptions. */
 function seo_pages() {
     $name = APP_NAME;
     return [
         'home' => [
-            'path' => '', 'file' => 'index.php', 'priority' => '1.0', 'changefreq' => 'weekly',
+            'path' => '',
             'title' => $name . ' - Build something amazing, faster',
             'description' => 'A modern full-stack platform to power your next project. Simple, fast, and ready to scale.',
         ],
         'about' => [
-            'path' => 'about', 'file' => 'about.php', 'priority' => '0.7', 'changefreq' => 'monthly',
+            'path' => 'about',
             'title' => 'About us - ' . $name,
             'description' => 'Learn about our mission to help teams ship faster with authentication, an admin dashboard and an optimized foundation out of the box.',
         ],
         'services' => [
-            'path' => 'services', 'file' => 'services.php', 'priority' => '0.8', 'changefreq' => 'monthly',
+            'path' => 'services',
             'title' => 'Our services - ' . $name,
             'description' => 'Fast server-side rendering, secure-by-default access control, an admin dashboard and reliable data management for your project.',
         ],
         'contact' => [
-            'path' => 'contact', 'file' => 'contact.php', 'priority' => '0.6', 'changefreq' => 'yearly',
+            'path' => 'contact',
             'title' => 'Contact us - ' . $name,
             'description' => 'Get in touch with the ' . $name . ' team. Send us a message and we will reply soon.',
         ],

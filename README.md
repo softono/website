@@ -8,7 +8,7 @@ A small multi-page PHP website (Home, About, Services, Contact) styled with a pr
 - **Loading UI**: a CSS spinner shown while uncached pages load (`.loading-text` in `assets/css/custom.css`).
 - **Theming**: CSS-variable themes in `assets/theme/`; the active one is `theme-claude.css`. Light/dark mode is stored in `localStorage`.
 - **Clean URLs**: `public/.htaccess` (Apache) or `nginx.conf` (Nginx) hides `.php` extensions and 301-redirects `*.php` requests.
-- **SEO**: per-page title/description/canonical, Open Graph and Twitter tags, and JSON-LD structured data from `src/seo.php`. `robots.txt` and `sitemap.xml` are generated (`robots.php`, `sitemap.php`) from `BASE_URL`, so they never contain placeholder domains. PJAX fragments are sent with `X-Robots-Tag: noindex`, and the 404 page is `noindex`.
+- **SEO**: per-page title/description/canonical, Open Graph and Twitter tags, and JSON-LD structured data from `src/seo.php`. `robots.txt` and `sitemap.xml` are static files in `public/`; replace `example.com` in both with your domain and add new pages to the sitemap. PJAX fragments are sent with `X-Robots-Tag: noindex`, and the 404 page is `noindex`.
 - **Security**: `src/security.php` sends CSP, HSTS (when `BASE_URL` is `https://`), `X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy` and `Permissions-Policy`. Only `public/` is web-accessible; `.htaccess` / `nginx.conf` additionally deny dotfiles and docs, and redirect to HTTPS outside localhost (Apache). The CDN-hosted jQuery scripts use Subresource Integrity.
 - **Contact form**: validated client-side with jQuery Validate and handled by `contact-send.php`, which enforces same-origin POSTs, a honeypot field, length limits and a per-IP rate limit (5 per 10 minutes, based on `REMOTE_ADDR`).
 
@@ -18,7 +18,7 @@ A small multi-page PHP website (Home, About, Services, Contact) styled with a pr
 public/                                           Web root (the only folder the server exposes)
   index.php, about.php, services.php, contact.php   Pages
   404.php                                         Not-found page
-  robots.php, sitemap.php                         Served as /robots.txt and /sitemap.xml
+  robots.txt, sitemap.xml                         Static; set your domain before launch
   contact-send.php                                Contact form handler
   assets/css/custom.css                           Custom styles (incl. PJAX loader)
   assets/css/tailwind.css                         Generated Tailwind build (committed; do not edit)
@@ -53,14 +53,14 @@ nginx.conf                                        URL rewriting (Nginx), include
 
 - **Theme**: change the theme stylesheet linked in `src/layouts/header.php`.
 - **Navigation**: edit `$navItems` in `src/layouts/header.php`.
-- **SEO**: edit page titles and descriptions in the `seo_pages()` registry in `src/seo.php`; it also feeds the sitemap.
+- **SEO**: edit page titles and descriptions in the `seo_pages()` registry in `src/seo.php`.
 - **Cache busting**: bump `ASSET_VERSION` after changing CSS or JS.
 
 ## Adding a page
 
 1. Create `public/page.php` modelled on an existing page, including the header and footer from `src/layouts/`.
 2. Add it to `$navItems` in `src/layouts/header.php`.
-3. Add an entry to `seo_pages()` in `src/seo.php` (this also adds it to the sitemap).
+3. Add an entry to `seo_pages()` in `src/seo.php` and a `<url>` to `public/sitemap.xml`.
 4. Give internal links the `pjax` class.
 
 ## License
