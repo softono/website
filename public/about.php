@@ -1,4 +1,4 @@
-<?php include __DIR__ . '/../layout/header.php'; ?>
+<?php include __DIR__ . '/../src/layouts/header.php'; ?>
 <div id="main-content" data-title="About">
 
     <section class="t-surface hero">
@@ -14,4 +14,4 @@
     </section>
 
 </div>
-<?php include __DIR__ . '/../layout/footer.php'; ?>
+<?php include __DIR__ . '/../src/layouts/footer.php'; ?>

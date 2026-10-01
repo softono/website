@@ -1,8 +1,8 @@
 <?php
-include_once __DIR__ . '/../src/config.php';
-include_once __DIR__ . '/../src/security.php';
-include_once __DIR__ . '/../src/seo.php';
-include_once __DIR__ . '/../src/icons.php';
+include_once __DIR__ . '/../config.php';
+include_once __DIR__ . '/../security.php';
+include_once __DIR__ . '/../seo.php';
+include_once __DIR__ . '/../icons.php';
 $baseUrl = base_url();
 $version = ASSET_VERSION;
 
@@ -48,7 +48,6 @@ if (!$partial) {
     <?php endif; ?>
     <base href="<?= e($baseUrl); ?>">
     <link rel="icon" type="image/svg+xml" href="assets/images/logo.svg">
-    <link rel="preconnect" href="https://cdn.tailwindcss.com">
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     <script>
         (function () {
@@ -60,12 +59,8 @@ if (!$partial) {
     </script>
     <link href="assets/css/custom.css?v=<?= $version; ?>" rel="stylesheet">
     <link href="assets/theme/theme-claude.css?v=<?= $version; ?>" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com?v=<?= $version; ?>"></script>
+    <link href="assets/css/tailwind.css?v=<?= $version; ?>" rel="stylesheet">
     <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: { extend: { colors: { indigo: { 50:'#f0fdf4',100:'#dcfce7',400:'#4cc274',500:'#2e9e4f',600:'#1f8a3e',700:'#17702f',900:'#0f4420' } } } },
-        };
         var documentReadyFunctions = [];
         function documentReady(fn) { documentReadyFunctions.push(fn); }
     </script>

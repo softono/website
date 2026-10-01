@@ -16,7 +16,7 @@ if (!headers_sent()) {
     // Tailwind's CDN build and the inline bootstrap scripts need 'unsafe-inline'; everything
     // else is locked to self + the specific CDNs this site uses.
     header("Content-Security-Policy: default-src 'self'; "
-        . "script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com; "
+        . "script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; "
         . "style-src 'self' 'unsafe-inline'; "
         . "img-src 'self' data:; font-src 'self' data:; connect-src 'self'; "
         . "object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'"

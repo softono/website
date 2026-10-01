@@ -1,6 +1,6 @@
 # Development convenience for when the project root (not public/) is the Apache document root.
 # In production, point the document root at public/ and this file is not needed.
-# Everything is served from public/, so .env, layout/, src/ and docs are unreachable.
+# Everything is served from public/, so .env, src/ and docs are unreachable.
 Options -Indexes
 RewriteEngine On
 RewriteRule ^public(/|$) - [L]
