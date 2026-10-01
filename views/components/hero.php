@@ -1,5 +1,5 @@
 <?php
-/* Hero band. Vars: $eyebrow, $title, $lead (optional), $large (optional), $actions (optional HTML), $crumb (optional page name: shows a breadcrumb). */
+/* Hero band. Vars: $eyebrow, $title, $lead (optional), $large (optional), $slot (optional inline content, e.g. buttons), $crumb (optional page name: shows a breadcrumb). */
 $h1 = !empty($large) ? 'text-4xl sm:text-5xl' : 'text-3xl sm:text-4xl';
 ?>
 <section class="t-surface hero">
@@ -11,8 +11,8 @@ $h1 = !empty($large) ? 'text-4xl sm:text-5xl' : 'text-3xl sm:text-4xl';
         <?php if (!empty($lead)): ?>
             <p class="mt-5 max-w-2xl text-lg t-muted"><?= e($lead); ?></p>
         <?php endif; ?>
-        <?php if (!empty($actions)): ?>
-            <div class="mt-8 flex flex-wrap gap-3"><?= $actions; ?></div>
+        <?php if (!empty(trim($slot ?? ''))): ?>
+            <div class="mt-8 flex flex-wrap gap-3"><?= $slot; ?></div>
         <?php endif; ?>
     </div>
 </section>

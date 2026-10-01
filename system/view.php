@@ -29,3 +29,18 @@ function render_page($key, $layout = 'main', $status = 200) {
 function component($name, array $vars = []) {
     echo render_view('components/' . $name, $vars);
 }
+
+/**
+ * Component with inline content: everything between component_start() and
+ * component_end() is passed to the component as $slot.
+ */
+function component_start($name, array $vars = []) {
+    $GLOBALS['__component_stack'][] = [$name, $vars];
+    ob_start();
+}
+
+function component_end() {
+    [$name, $vars] = array_pop($GLOBALS['__component_stack']);
+    $vars['slot'] = ob_get_clean();
+    component($name, $vars);
+}
