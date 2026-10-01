@@ -1,0 +1,11 @@
+RewriteEngine On
+
+# 2. Redirect external requests for *.php to extensionless (301 redirect)
+RewriteCond %{THE_REQUEST} \s/+(.*?)\.php[\s?] [NC]
+RewriteCond %{ENV:REDIRECT_STATUS} ^$
+RewriteRule ^(.+)\.php$ $1 [R=301,L,NE]
+
+# 3. Route extensionless requests to PHP files internally
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^([^/]+)/?$ $1.php [L]
