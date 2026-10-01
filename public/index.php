@@ -1,7 +1,7 @@
-<?php include 'layout/header.php'; ?>
+<?php include __DIR__ . '/../layout/header.php'; ?>
 <div id="main-content" data-title="Home">
 
-    <section class="t-surface">
+    <section class="t-surface hero">
         <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-20">
             <p class="eyebrow">Home</p>
             <h1 class="mt-2 max-w-3xl text-4xl font-extrabold tracking-tight t-heading sm:text-5xl">Build something amazing, faster</h1>
@@ -22,7 +22,7 @@
                 ['layout', 'Admin Dashboard', 'A powerful admin panel to manage users, content, and settings with ease.'],
             ] as $c): ?>
                 <article class="card">
-                    <span class="t-brand"><?= icon($c[0], 'w-6 h-6'); ?></span>
+                    <span class="icon-tile"><?= icon($c[0], 'w-6 h-6'); ?></span>
                     <h3 class="mt-3 font-semibold t-heading"><?= $c[1]; ?></h3>
                     <p class="mt-1.5 text-sm t-muted"><?= $c[2]; ?></p>
                 </article>
@@ -39,4 +39,4 @@
     </section>
 
 </div>
-<?php include 'layout/footer.php'; ?>
+<?php include __DIR__ . '/../layout/footer.php'; ?>

@@ -1,0 +1,169 @@
+/* Component layout/structure. Colors and dark mode live in theme.css.
+   Layout and spacing come from Tailwind utilities.
+   Plain CSS (no @apply): the Tailwind Play CDN only compiles inline blocks.
+   Loaded before the Tailwind CDN, so utility classes override these on conflict. */
+
+/* ---------- Base ---------- */
+html { scroll-padding-top: 5rem; }
+
+:focus-visible {
+  outline: 2px solid;
+  outline-offset: 2px;
+  border-radius: 0.25rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, ::before, ::after { animation: none !important; transition: none !important; }
+}
+
+/* ---------- Navigation ---------- */
+.nav-link {
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  transition: color .15s, background-color .15s;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex;
+  min-height: 2.75rem;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 0.75rem;
+  padding: 0.625rem 1.25rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+  transition: color .15s, background-color .15s;
+}
+.btn:disabled { cursor: not-allowed; opacity: .6; }
+
+/* ---------- Card / eyebrow ---------- */
+.card {
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 1px 2px rgb(0 0 0 / .05);
+}
+
+.eyebrow {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* ---------- Forms ---------- */
+.field {
+  display: block;
+  width: 100%;
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+}
+.field:focus { box-shadow: none; }
+
+.field-error { margin-top: 0.375rem; font-size: 0.875rem; line-height: 1.25rem; }
+
+/* ---------- Hero grid backdrop ---------- */
+.bg-grid {
+  background-size: 40px 40px;
+  -webkit-mask-image: radial-gradient(ellipse at top, #000 30%, transparent 75%);
+  mask-image: radial-gradient(ellipse at top, #000 30%, transparent 75%);
+}
+
+/* ---------- Footer ---------- */
+.footer-link { text-decoration: underline; text-underline-offset: 4px; text-decoration-color: transparent; transition: text-decoration-color .15s; }
+.footer-link:hover { text-decoration-color: currentColor; }
+.site-footer { background-color: var(--card); color: var(--muted-foreground); border-color: var(--border); }
+.site-footer .footer-link { color: var(--foreground); }
+
+/* ---------- PJAX loading UI ---------- */
+.loading-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  min-height: 40vh;
+  font-size: 0.95rem;
+  color: var(--muted-foreground);
+  animation: pjax-fade-in .2s ease .15s both; /* skip flash on fast loads */
+}
+.loading-text::before {
+  content: "";
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--border);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: pjax-spin .7s linear infinite;
+}
+@keyframes pjax-spin { to { transform: rotate(360deg); } }
+@keyframes pjax-fade-in { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .loading-text { animation: none; }
+  .loading-text::before { animation-duration: 1.5s; }
+}
+
+/* ---------- Accessibility / polish layered on top of any theme ----------
+   Theme files load after this one, so selectors are prefixed with `html` to win on specificity.
+   Colors are derived from theme variables so every theme keeps working. */
+html .t-muted,
+html .nav-link { color: color-mix(in oklab, var(--muted-foreground), var(--foreground) 45%); }
+html .nav-link:hover,
+html .nav-link.active { color: var(--accent-foreground); }
+html .field::placeholder { color: color-mix(in oklab, var(--muted-foreground), var(--foreground) 45%); }
+html .eyebrow { color: color-mix(in oklab, var(--primary), var(--foreground) 30%); }
+html .btn-primary { background-color: color-mix(in oklab, var(--primary) 78%, black); }
+html .btn-primary:hover { background-color: color-mix(in oklab, var(--primary) 66%, black); }
+html .field { border-color: color-mix(in oklab, var(--input) 55%, var(--foreground)); }
+html .field:focus { border-color: var(--ring); outline: 2px solid var(--ring); outline-offset: 1px; }
+
+.nav-link { display: inline-flex; min-height: 2.75rem; align-items: center; }
+@media (max-width: 639px) { .nav-link { padding-inline: 0.5rem; } }
+.btn:active { transform: translateY(1px); }
+h1, h2 { text-wrap: balance; }
+
+/* Theme toggle */
+.theme-toggle {
+  display: inline-flex; width: 2.75rem; height: 2.75rem; cursor: pointer;
+  align-items: center; justify-content: center; border-radius: 0.5rem;
+  background: transparent; border: 0;
+  transition: color .15s, background-color .15s;
+}
+html .theme-toggle { color: color-mix(in oklab, var(--muted-foreground), var(--foreground) 45%); }
+html .theme-toggle:hover { background-color: var(--accent); color: var(--accent-foreground); }
+
+/* Hero: soft brand glow instead of a flat block */
+.hero {
+  background-image: radial-gradient(60rem 24rem at 15% -10%, color-mix(in oklab, var(--primary) 14%, transparent), transparent 70%);
+  border-bottom: 1px solid var(--border);
+}
+
+/* Feature icon tile + subtle card hover */
+.icon-tile {
+  display: inline-flex; width: 2.75rem; height: 2.75rem; flex: none;
+  align-items: center; justify-content: center; border-radius: 0.75rem;
+  background-color: color-mix(in oklab, var(--primary) 12%, transparent);
+  color: color-mix(in oklab, var(--primary), var(--foreground) 30%);
+}
+.card { transition: border-color .15s, box-shadow .15s; }
+.card:hover { border-color: color-mix(in oklab, var(--primary) 40%, var(--border)); box-shadow: 0 4px 14px rgb(0 0 0 / .08); }
+
+/* Form feedback: state is conveyed by text, border and a prefix, not color alone */
+.ajax-response:empty { display: none; }
+.form-alert { margin-bottom: 1rem; border: 1px solid; border-radius: 0.75rem; padding: 0.75rem 1rem; font-size: 0.875rem; line-height: 1.25rem; }
+.form-alert-success { border-color: #15803d; background: #f0fdf4; color: #14532d; }
+.form-alert-error { border-color: #b91c1c; background: #fef2f2; color: #7f1d1d; }
+.dark .form-alert-success { background: #052e16; color: #bbf7d0; border-color: #4ade80; }
+.dark .form-alert-error { background: #450a0a; color: #fecaca; border-color: #f87171; }
+html p.field-error { color: #b91c1c; font-weight: 500; }
+html p.field-error::before { content: "! "; font-weight: 700; }
+.dark p.field-error { color: #fca5a5; }
+html input.field-error, html textarea.field-error { border-color: #b91c1c; margin-top: 0; font-weight: 400; }
+.dark input.field-error, .dark textarea.field-error { border-color: #f87171; }

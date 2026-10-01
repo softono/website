@@ -1,55 +1,7 @@
-Options -Indexes -MultiViews
-ServerSignature Off
-
+# Development convenience for when the project root (not public/) is the Apache document root.
+# In production, point the document root at public/ and this file is not needed.
+# Everything is served from public/, so .env, layout/, src/ and docs are unreachable.
+Options -Indexes
 RewriteEngine On
-
-# --- Security: never serve secrets, dotfiles, internals or docs -------------------------------
-# .env holds MAIL_API_KEY; Apache only protects .ht* by default.
-<FilesMatch "^\.(?!well-known)|\.(env|example|md|conf|log|sql|bak|ini)$|^(LICENSE|README.*)$">
-    Require all denied
-</FilesMatch>
-# layout/ and src/ contain includes only; they are never meant to be requested directly.
-RewriteRule ^(layout|src)(/|$) - [F,L]
-
-# --- HTTPS: redirect everything except local development hosts --------------------------------
-RewriteCond %{HTTPS} off
-RewriteCond %{HTTP:X-Forwarded-Proto} !https [NC]
-RewriteCond %{HTTP_HOST} !^(localhost|127\.0\.0\.1|\[::1\])(:\d+)?$ [NC]
-RewriteCond %{HTTP_HOST} !\.(localhost|test)(:\d+)?$ [NC]
-RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
-
-# --- SEO: robots.txt and sitemap.xml are generated from BASE_URL ------------------------------
-RewriteRule ^robots\.txt$ robots.php [L]
-RewriteRule ^sitemap\.xml$ sitemap.php [L]
-
-# Redirect external requests for *.php to extensionless (301 redirect)
-RewriteCond %{THE_REQUEST} \s/+(.*?)\.php[\s?] [NC]
-RewriteCond %{ENV:REDIRECT_STATUS} ^$
-RewriteRule ^(.+)\.php$ $1 [R=301,L,NE]
-
-# Route extensionless requests to PHP files internally
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME}.php -f
-RewriteRule ^([^/]+)/?$ $1.php [L]
-
-# Anything that is not a real file or directory gets the 404 page (404.php sets the 404 status).
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^ 404.php [L]
-
-# --- Compression and caching (security headers are sent from src/security.php) ------------
-<IfModule mod_deflate.c>
-    AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml application/xml application/javascript application/json image/svg+xml
-</IfModule>
-
-# Assets are cache-busted with ?v=ASSET_VERSION, so they can be cached for a long time.
-<IfModule mod_expires.c>
-    ExpiresActive On
-    ExpiresByType text/css "access plus 1 year"
-    ExpiresByType application/javascript "access plus 1 year"
-    ExpiresByType text/javascript "access plus 1 year"
-    ExpiresByType image/svg+xml "access plus 1 month"
-    ExpiresByType image/png "access plus 1 year"
-    ExpiresByType image/jpeg "access plus 1 year"
-    ExpiresByType image/webp "access plus 1 year"
-</IfModule>
+RewriteRule ^public(/|$) - [L]
+RewriteRule ^(.*)$ public/$1 [L]

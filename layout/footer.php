@@ -12,6 +12,23 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js" integrity="sha512-rstIgDs0xPgmG6RX1Aba4KV5cWJbAMcvRCVmglpam9SoHZiUCyQVDdH2LPlxoHtrv17XWblE/V/PP+Tr04hbtA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="assets/js/pjax.min.js?v=<?= e(ASSET_VERSION); ?>"></script>
     <script>
+        (function () {
+            var btn = document.getElementById('theme-toggle'), root = document.documentElement;
+            function sync() {
+                var dark = root.classList.contains('dark');
+                btn.setAttribute('aria-pressed', dark);
+                btn.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+            }
+            btn.addEventListener('click', function () {
+                var dark = !root.classList.contains('dark');
+                root.classList.toggle('dark', dark);
+                try { localStorage.setItem('theme', dark ? 'dark' : 'light'); } catch (e) {}
+                sync();
+            });
+            sync();
+        })();
+    </script>
+    <script>
         $(function () {
             pjax.onLinkClick = function (link) {
                 var $t = $('.nav-link').filter(function () { return this.href === link.href; });

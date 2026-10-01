@@ -1,7 +1,7 @@
-<?php include 'layout/header.php'; ?>
+<?php include __DIR__ . '/../layout/header.php'; ?>
 <div id="main-content" data-title="Services">
 
-    <section class="t-surface">
+    <section class="t-surface hero">
         <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6">
             <p class="eyebrow">Services</p>
             <h1 class="mt-2 text-4xl font-extrabold t-heading">Our services</h1>
@@ -17,7 +17,7 @@
                 ['database', 'Data Management', 'Store, query, and export your data with a clean, reliable backend.'],
             ] as $s): ?>
                 <article class="card flex gap-4">
-                    <span class="t-brand"><?= icon($s[0], 'w-6 h-6'); ?></span>
+                    <span class="icon-tile"><?= icon($s[0], 'w-6 h-6'); ?></span>
                     <div>
                         <h2 class="font-semibold t-heading"><?= $s[1]; ?></h2>
                         <p class="mt-1.5 text-sm t-muted"><?= $s[2]; ?></p>
@@ -28,4 +28,4 @@
     </section>
 
 </div>
-<?php include 'layout/footer.php'; ?>
+<?php include __DIR__ . '/../layout/footer.php'; ?>

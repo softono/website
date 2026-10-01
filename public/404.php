@@ -6,7 +6,7 @@ $seoOverride = [
     'robots' => 'noindex, follow',
     'jsonld' => '',
 ];
-include 'layout/header.php';
+include __DIR__ . '/../layout/header.php';
 ?>
 <div id="main-content" data-title="Page not found">
 
@@ -18,4 +18,4 @@ include 'layout/header.php';
     </section>
 
 </div>
-<?php include 'layout/footer.php'; ?>
+<?php include __DIR__ . '/../layout/footer.php'; ?>

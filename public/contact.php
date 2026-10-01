@@ -1,7 +1,7 @@
-<?php include 'layout/header.php'; ?>
+<?php include __DIR__ . '/../layout/header.php'; ?>
 <div id="main-content" data-title="Contact">
 
-    <section class="t-surface">
+    <section class="t-surface hero">
         <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6">
             <p class="eyebrow">Contact</p>
             <h1 class="mt-2 text-4xl font-extrabold t-heading">Get in touch</h1>
@@ -10,7 +10,7 @@
 
     <section class="mx-auto max-w-2xl px-4 py-16 sm:px-6">
         <div class="card p-6 sm:p-8">
-            <div class="ajax-response mb-4" role="status" aria-live="polite"></div>
+            <div class="ajax-response" role="status" aria-live="polite"></div>
             <form id="contact-form" action="contact-send" method="POST" class="space-y-5" novalidate>
                 <div>
                     <label for="name" class="mb-1.5 block text-sm font-medium">Name</label>
@@ -35,19 +35,27 @@
 
     <script>
         documentReady(function () {
+            function show(msg, ok) {
+                $('.ajax-response').attr('class', 'ajax-response form-alert ' + (ok ? 'form-alert-success' : 'form-alert-error')).text(msg);
+            }
             $('#contact-form').validate({
                 errorElement: 'p',
                 errorClass: 'field-error',
+                highlight: function (el, errorClass) { $(el).addClass(errorClass).attr('aria-invalid', 'true'); },
+                unhighlight: function (el, errorClass) { $(el).removeClass(errorClass).removeAttr('aria-invalid'); },
                 submitHandler: function (form) {
+                    var $btn = $(form).find('[type=submit]').prop('disabled', true).text('Sending...');
                     $.post($(form).attr('action'), $(form).serialize(), function (res) {
-                        $('.ajax-response').text(res.message);
+                        show(res.message, res.status == 1);
                         if (res.status == 1) form.reset();
                     }, 'json').fail(function () {
-                        $('.ajax-response').text('Could not send message.');
+                        show('Could not send message. Please try again or email us directly.', false);
+                    }).always(function () {
+                        $btn.prop('disabled', false).text('Send message');
                     });
                 }
             });
         });
     </script>
 </div>
-<?php include 'layout/footer.php'; ?>
+<?php include __DIR__ . '/../layout/footer.php'; ?>

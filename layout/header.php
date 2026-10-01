@@ -76,12 +76,16 @@ if (!$partial) {
         <div class="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
             <a href="./" class="pjax flex items-center" aria-label="<?= e(APP_NAME); ?> home">
                 <span class="t-brand" aria-hidden="true"><svg viewBox="0 0 40 40" class="h-9 w-9"><rect x="2" y="2" width="36" height="36" rx="9" fill="currentColor"/><path d="M13 29V11h7a5.5 5.5 0 0 1 0 11h-7" fill="none" stroke="var(--primary-foreground)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-                <span class="ml-2.5 text-lg font-bold tracking-tight t-heading"><?= e(APP_NAME); ?></span>
+                <span class="ml-2.5 text-lg font-bold tracking-tight t-heading max-[430px]:sr-only"><?= e(APP_NAME); ?></span>
             </a>
             <nav class="flex items-center gap-1" aria-label="Primary">
                 <?php foreach ($navItems as $key => $label): ?>
                     <a href="<?= $key; ?>" class="nav-link pjax<?= $currentPageKey === $key ? ' active' : ''; ?>"><?= $label; ?></a>
                 <?php endforeach; ?>
+                <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Switch to dark mode" aria-pressed="false">
+                    <svg class="h-5 w-5 dark:hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+                    <svg class="hidden h-5 w-5 dark:block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+                </button>
             </nav>
         </div>
     </header>

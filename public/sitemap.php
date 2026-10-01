@@ -1,7 +1,7 @@
 <?php
 // Served as /sitemap.xml (see .htaccess / nginx.conf). Built from BASE_URL and the page registry.
-include_once __DIR__ . '/src/config.php';
-include_once __DIR__ . '/src/seo.php';
+include_once __DIR__ . '/../src/config.php';
+include_once __DIR__ . '/../src/seo.php';
 
 header('Content-Type: application/xml; charset=UTF-8');
 header('X-Robots-Tag: noindex');

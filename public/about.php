@@ -1,7 +1,7 @@
-<?php include 'layout/header.php'; ?>
+<?php include __DIR__ . '/../layout/header.php'; ?>
 <div id="main-content" data-title="About">
 
-    <section class="t-surface">
+    <section class="t-surface hero">
         <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6">
             <p class="eyebrow">About</p>
             <h1 class="mt-2 text-4xl font-extrabold t-heading">About us</h1>
@@ -14,4 +14,4 @@
     </section>
 
 </div>
-<?php include 'layout/footer.php'; ?>
+<?php include __DIR__ . '/../layout/footer.php'; ?>

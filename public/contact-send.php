@@ -1,7 +1,7 @@
 <?php
 header('Content-Type: application/json');
-include_once __DIR__ . '/src/config.php';
-include_once __DIR__ . '/src/security.php';
+include_once __DIR__ . '/../src/config.php';
+include_once __DIR__ . '/../src/security.php';
 header('Cache-Control: no-store');
 header('X-Robots-Tag: noindex, nofollow');
 
