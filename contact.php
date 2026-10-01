@@ -14,15 +14,19 @@
             <form id="contact-form" action="contact-send" method="POST" class="space-y-5" novalidate>
                 <div>
                     <label for="name" class="mb-1.5 block text-sm font-medium">Name</label>
-                    <input type="text" class="field" id="name" name="name" required>
+                    <input type="text" class="field" id="name" name="name" autocomplete="name" maxlength="100" required>
                 </div>
                 <div>
                     <label for="email" class="mb-1.5 block text-sm font-medium">Email</label>
-                    <input type="email" class="field" id="email" name="email" required>
+                    <input type="email" class="field" id="email" name="email" autocomplete="email" maxlength="254" required>
                 </div>
                 <div>
                     <label for="message" class="mb-1.5 block text-sm font-medium">Message</label>
-                    <textarea class="field min-h-36" id="message" name="message" required></textarea>
+                    <textarea class="field min-h-36" id="message" name="message" maxlength="5000" required></textarea>
+                </div>
+                <div class="absolute -left-[9999px]" aria-hidden="true">
+                    <label for="website">Leave this field empty</label>
+                    <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
                 </div>
                 <button type="submit" class="btn btn-primary w-full">Send message</button>
             </form>

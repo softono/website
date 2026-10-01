@@ -23,7 +23,7 @@
             ] as $c): ?>
                 <article class="card">
                     <span class="t-brand"><?= icon($c[0], 'w-6 h-6'); ?></span>
-                    <h2 class="mt-3 font-semibold t-heading"><?= $c[1]; ?></h2>
+                    <h3 class="mt-3 font-semibold t-heading"><?= $c[1]; ?></h3>
                     <p class="mt-1.5 text-sm t-muted"><?= $c[2]; ?></p>
                 </article>
             <?php endforeach; ?>

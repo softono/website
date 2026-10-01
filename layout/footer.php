@@ -2,13 +2,15 @@
     </main>
     <footer class="site-footer mt-8 border-t">
         <div class="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-10 text-sm sm:flex-row sm:justify-between sm:px-6">
-            <p>&copy; <?= date('Y'); ?> <?= SITE_NAME; ?>. All rights reserved.</p>
-            <a class="footer-link" href="mailto:<?= CONTACT_EMAIL; ?>"><?= CONTACT_EMAIL; ?></a>
+            <p>&copy; <?= date('Y'); ?> <?= e(APP_NAME); ?>. All rights reserved.</p>
+            <?php if (CONTACT_EMAIL !== ''): ?>
+                <a class="footer-link" href="mailto:<?= e(CONTACT_EMAIL); ?>"><?= e(CONTACT_EMAIL); ?></a>
+            <?php endif; ?>
         </div>
     </footer>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
-    <script src="assets/js/pjax.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js" integrity="sha512-rstIgDs0xPgmG6RX1Aba4KV5cWJbAMcvRCVmglpam9SoHZiUCyQVDdH2LPlxoHtrv17XWblE/V/PP+Tr04hbtA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="assets/js/pjax.min.js?v=<?= e(ASSET_VERSION); ?>"></script>
     <script>
         $(function () {
             pjax.onLinkClick = function (link) {
